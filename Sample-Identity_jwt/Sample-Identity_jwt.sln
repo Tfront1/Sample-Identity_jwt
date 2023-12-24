@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample-Identity_jwt", "Sample-Identity_jwt\Sample-Identity_jwt.csproj", "{E35269E1-8ABD-418F-994B-C1389AAFFF46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E35269E1-8ABD-418F-994B-C1389AAFFF46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E35269E1-8ABD-418F-994B-C1389AAFFF46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E35269E1-8ABD-418F-994B-C1389AAFFF46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E35269E1-8ABD-418F-994B-C1389AAFFF46}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9025AB0-A88B-4829-8396-C168DFB18C53}
+	EndGlobalSection
+EndGlobal
