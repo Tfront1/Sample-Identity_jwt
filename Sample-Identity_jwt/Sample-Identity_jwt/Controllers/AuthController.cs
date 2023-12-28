@@ -27,8 +27,9 @@ namespace Sample_Identity_jwt.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginUserDto loginUserDto)
         {
-            if (await authService.Login(loginUserDto)) {
-                var token = authService.GenerateToken(loginUserDto);
+            var user = await authService.Login(loginUserDto);
+            if (user != null) {
+                var token = authService.GenerateToken(user);
                 return Ok(token);
             }
             return BadRequest();

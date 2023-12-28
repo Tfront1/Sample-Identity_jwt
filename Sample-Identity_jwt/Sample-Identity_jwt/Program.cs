@@ -9,12 +9,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 
 using System.Text;
+using Sample_Identity_jwt.Models;
+using Microsoft.AspNetCore.Authorization;
+using Sample_Identity_jwt.PermissionModule;
+using Microsoft.Extensions.Hosting;
+using Sample_Identity_jwt.Initializers;
 
 namespace Sample_Identity_jwt
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +86,14 @@ namespace Sample_Identity_jwt
                 });
             });
 
+            builder.Services.AddAuthorization();
+            builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+            builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
+            builder.Services.AddTransient<IPermissionService, PermissionService>();
+
+            
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -97,6 +110,8 @@ namespace Sample_Identity_jwt
 
 
             app.MapControllers();
+
+            await CommonInitializer.InitializeAppAsync(app);
 
             app.Run();
         }

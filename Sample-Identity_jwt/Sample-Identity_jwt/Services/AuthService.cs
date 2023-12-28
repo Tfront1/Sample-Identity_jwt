@@ -18,12 +18,13 @@ namespace Sample_Identity_jwt.Services
             this.configuration = configuration;
         }
 
-        public string GenerateToken(LoginUserDto loginUserDto)
+        public string GenerateToken(IdentityUser user)
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Email,loginUserDto.UserName),
-                new Claim(ClaimTypes.Role,"Admin"),
+                new Claim(ClaimTypes.Email,user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Role, Role.Admin.Name),
             };
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("Jwt:Key").Value));
@@ -41,25 +42,34 @@ namespace Sample_Identity_jwt.Services
             return token;
         }
 
-        public async Task<bool> Login(LoginUserDto loginUserDto)
+        public async Task<IdentityUser> Login(LoginUserDto loginUserDto)
         {
             var identityUser = await userManager.FindByEmailAsync(loginUserDto.UserName);
             if(identityUser is null)
             {
-                return false;
+                return null;
             }
-            return await userManager.CheckPasswordAsync(identityUser, loginUserDto.Password);
+            if (!await userManager.CheckPasswordAsync(identityUser, loginUserDto.Password)){
+                return null;
+            }
+            return identityUser;
         }
 
         public async Task<bool> Register(LoginUserDto loginUserDto)
         {
-            var identityUser = new IdentityUser
+            IdentityUser identityUser = new IdentityUser
             {
                 UserName = loginUserDto.UserName,
                 Email = loginUserDto.UserName,
             };
-            var user = await userManager.CreateAsync(identityUser,loginUserDto.Password);
-            return user.Succeeded;
+            var result = await userManager.CreateAsync(identityUser,loginUserDto.Password);
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(identityUser, Role.Admin.Name);
+            }
+
+            return result.Succeeded;
         }
     }
 }

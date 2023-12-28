@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sample_Identity_jwt.PermissionModule;
 
 namespace Sample_Identity_jwt.Controllers
 {
-    [Authorize]
+    [HasPermission(Permissions.GetWeather)]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
