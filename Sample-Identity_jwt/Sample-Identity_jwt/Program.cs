@@ -90,6 +90,7 @@ namespace Sample_Identity_jwt
             builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
             builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
             builder.Services.AddTransient<IPermissionService, PermissionService>();
+            builder.Services.AddTransient<IAdministrationService, AdministrationService>();
 
             
 

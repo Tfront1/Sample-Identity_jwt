@@ -22,7 +22,7 @@ namespace Sample_Identity_jwt.Services
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Email,user.UserName),
+                new Claim(ClaimTypes.Email, user.UserName),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Role, Role.Admin.Name),
             };
@@ -55,7 +55,7 @@ namespace Sample_Identity_jwt.Services
             return identityUser;
         }
 
-        public async Task<bool> Register(LoginUserDto loginUserDto)
+        public async Task<bool> RegisterAdmin(LoginUserDto loginUserDto)
         {
             IdentityUser identityUser = new IdentityUser
             {
@@ -67,6 +67,23 @@ namespace Sample_Identity_jwt.Services
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(identityUser, Role.Admin.Name);
+            }
+
+            return result.Succeeded;
+        }
+
+        public async Task<bool> RegisterUser(LoginUserDto loginUserDto)
+        {
+            IdentityUser identityUser = new IdentityUser
+            {
+                UserName = loginUserDto.UserName,
+                Email = loginUserDto.UserName,
+            };
+            var result = await userManager.CreateAsync(identityUser, loginUserDto.Password);
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(identityUser, Role.User.Name);
             }
 
             return result.Succeeded;

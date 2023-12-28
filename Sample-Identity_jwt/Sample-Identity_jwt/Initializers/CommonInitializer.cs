@@ -10,9 +10,8 @@ namespace Sample_Identity_jwt.Initializers
         {
             using (var scope = app.Services.CreateScope())
             {
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                await RoleInitializer.InitializeAsync(userManager, roleManager);
+                await RoleInitializer.InitializeAsync(roleManager);
             }
 
             using (var scope = app.Services.CreateScope())

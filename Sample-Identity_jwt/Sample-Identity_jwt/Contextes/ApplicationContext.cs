@@ -12,7 +12,6 @@ namespace Sample_Identity_jwt.Contextes
 
         public ApplicationContext(DbContextOptions options): base(options)
         {
-
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

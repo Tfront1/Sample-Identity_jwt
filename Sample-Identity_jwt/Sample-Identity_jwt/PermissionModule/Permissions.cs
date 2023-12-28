@@ -3,5 +3,6 @@
     public enum Permissions
     {
        GetWeather = 1,
+       Administration = 2,
     }
 }

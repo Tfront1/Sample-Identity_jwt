@@ -15,10 +15,20 @@ namespace Sample_Identity_jwt.Controllers
         {
             this.authService = authService;
         }
-        [HttpPost("Register")]
-        public async Task<IActionResult> Register(LoginUserDto loginUserDto)
+        [HttpPost("RegisterAdmin")]
+        public async Task<IActionResult> RegisterAdmin(LoginUserDto loginUserDto)
         {
-            if (await authService.Register(loginUserDto))
+            if (await authService.RegisterAdmin(loginUserDto))
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
+
+        [HttpPost("RegisterUser")]
+        public async Task<IActionResult> RegisterUser(LoginUserDto loginUserDto)
+        {
+            if (await authService.RegisterUser(loginUserDto))
             {
                 return Ok();
             }

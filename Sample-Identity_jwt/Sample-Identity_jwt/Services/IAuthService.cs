@@ -7,6 +7,7 @@ namespace Sample_Identity_jwt.Services
     {
         string GenerateToken(IdentityUser user);
         Task<IdentityUser> Login(LoginUserDto loginUserDto);
-        Task<bool> Register(LoginUserDto loginUserDto);
+        Task<bool> RegisterAdmin(LoginUserDto loginUserDto);
+        Task<bool> RegisterUser(LoginUserDto loginUserDto);
     }
 }
